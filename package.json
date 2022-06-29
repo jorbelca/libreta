@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "commonjs",
   "main": "index.js",
-  "browser":{"fs":false},
+
   "scripts": {
     "package": "npm run build && electron-builder",
     "dev": "vite",

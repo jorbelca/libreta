@@ -1,10 +1,37 @@
 <script>
-	let textoGuardar;
+	const getTime = () => {
+		let currentDate = new Date();
+
+		let hours = currentDate.getHours();
+		if (hours < 10) hours = `0${hours}`;
+		let minutes = currentDate.getMinutes();
+		if (minutes < 10) minutes = `0${minutes}`;
+
+		let time = hours + ':' + minutes;
+
+		return time;
+	};
+
+	const getDate = () => {
+		let currentDate = new Date();
+
+		let day = currentDate.getDate();
+		if (day < 10) day = `0${day}`;
+		let month = currentDate.getMonth() + 1;
+		if (month < 10) month = `0${month}`;
+		let year = currentDate.getFullYear();
+
+		let completeDate = day + ' del ' + month + ' de ' + year;
+		return completeDate;
+	};
+	let inputTexto;
 
 	const handleSubmit = async () => {
-		window.api.send('savenewfile', textoGuardar);
+		const actualTime = getDate() + '  a las  ' + getTime();
 
-		textoGuardar = '';
+		let textoGuardar = actualTime + ' ----- ' + inputTexto;
+
+		window.api.send('savenewfile', textoGuardar);
 	};
 </script>
 
@@ -12,7 +39,7 @@
 	<div class="input">
 		<form on:submit|preventDefault={handleSubmit}>
 			<input
-				bind:value={textoGuardar}
+				bind:value={inputTexto}
 				type="text"
 				width="800"
 				height="90"

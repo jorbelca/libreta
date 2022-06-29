@@ -19,23 +19,26 @@ app.on("ready", () => {
   mainWindow.setBounds({ x: 440, y: 225, width: 850, height: 95, animate: true })
 
   mainWindow.loadFile(path.join(__dirname, "./dist/index.html"));
-  mainWindow.webContents.openDevTools()
 
 
-  const createNewFile = (content) => {
+
+  const createNewFile = async (content) => {
+
     dialog
       .showSaveDialog({
-        title: "Create New File",
+        title: "Guardar",
         properties: ["showOverwriteConfirmation"],
         filters: [
           {
-            name: "Markdown Files",
-            extensions: ["txt"],
+            name: 'LIBRETA',
+            extensions: [".txt"],
           },
         ],
       })
       .then(({ canceled, filePath }) => {
         if (canceled) return;
+
+
 
         fs.writeFile(filePath, content, (err) => {
           if (err) return;
@@ -44,7 +47,7 @@ app.on("ready", () => {
   };
 
   ipcMain.on("savenewfile", (e, content) => {
-    console.log(content);
+
     createNewFile(content);
   });
   ipcMain.on("saveexistingfile", (e, { path, content }) => {
