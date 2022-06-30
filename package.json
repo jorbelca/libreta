@@ -1,12 +1,23 @@
 {
-  "name": "front",
-  "private": true,
-  "version": "0.0.0",
+  "private": false,
+  "version": "0.0.1",
   "type": "commonjs",
   "main": "index.js",
-
+  "name":"libreta",
+    "description":"Es una pequeña aplicacion para hacer una suerte de libreta en el escritorio de trabajo y mejorar la productividad",
+    "keywords":["productividad, libreta, apuntar"],
+    "homepage":"https://github.com/jorbelca/libreta",
+    "license":"MIT",
+    "author":"jorbelca (https://github.com/jorbelca)",
+  "build": {
+    
+    "appId": "0",
+    "mac": {
+      "category": "productivity"
+    }
+  },
   "scripts": {
-    "package": "npm run build && electron-builder",
+    "package": "electron-builder",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",

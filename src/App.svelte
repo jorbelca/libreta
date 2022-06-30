@@ -32,10 +32,12 @@
 		let textoGuardar = actualTime + ' ----- ' + inputTexto;
 
 		window.api.send('savenewfile', textoGuardar);
+		inputTexto = '';
 	};
 </script>
 
 <main>
+	<!-- EN EL INDEX HTML DE LA DIST, ELIMINAR BARRA DEL HREF DEL JS Y CSS -->
 	<div class="input">
 		<form on:submit|preventDefault={handleSubmit}>
 			<input
@@ -44,6 +46,7 @@
 				width="800"
 				height="90"
 				placeholder="Para guardar, Enter ⏎"
+				autofocus
 			/>
 		</form>
 	</div>

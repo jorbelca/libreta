@@ -1,6 +1,7 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain } = require("electron");
 const path = require("path");
 const fs = require("fs");
+const os = require('os');
 
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
@@ -21,39 +22,58 @@ app.on("ready", () => {
   mainWindow.loadFile(path.join(__dirname, "./dist/index.html"));
 
 
-
-  const createNewFile = async (content) => {
-
-    dialog
-      .showSaveDialog({
-        title: "Guardar",
-        properties: ["showOverwriteConfirmation"],
-        filters: [
-          {
-            name: 'LIBRETA',
-            extensions: [".txt"],
-          },
-        ],
-      })
-      .then(({ canceled, filePath }) => {
-        if (canceled) return;
-
-
-
-        fs.writeFile(filePath, content, (err) => {
-          if (err) return;
-        });
-      });
-  };
-
   ipcMain.on("savenewfile", (e, content) => {
+    const dir = os.homedir() + '/Desktop'
+    try {
+      const appendContent = '\r\n' + content
+      fs.appendFile(dir + '/Libreta.txt', appendContent, (err) => {
+        app.quit()
+        if (err) throw err;
+      });
+    } catch (err) {
+      fs.close(content, (err) => {
+        if (err) throw err;
+      });
+    }
 
-    createNewFile(content);
-  });
-  ipcMain.on("saveexistingfile", (e, { path, content }) => {
-    console.log(content);
-    fs.writeFile(path, content, (err) => {
-      if (err) return;
-    });
-  });
-});
+  })
+})
+
+
+
+
+
+
+
+
+  //   ipcMain.on("saveexistingfile", (e, { path, content }) => {
+  //     console.log(content);
+  //     fs.writeFile(path, content, (err) => {
+  //       if (err) return err;
+  //       return 'Guardado'
+  //     });
+  //   });
+  // });
+   // fs.open('Libreta.txt', 'wx', (err, content) => {
+    //   if (err) {
+    //     if (err.code === 'EEXIST') {
+    //       console.error('myfile already exists');
+    //       try {
+    //         fs.appendFile('Libreta.txt', content, (err) => {
+    //           if (err) return err;
+    //           return 'Guardado'
+    //         });
+    //       } catch(e) {
+    //         close((err) => {
+    //           if (err) throw err;
+    //         });
+
+    //       }
+
+    //     }
+
+    //     throw err;
+    //   }
+
+
+    // });
