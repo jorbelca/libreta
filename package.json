@@ -1,33 +1,59 @@
 {
-  "private": false,
-  "version": "0.0.1",
-  "type": "commonjs",
-  "main": "index.js",
-  "name":"libreta",
-    "description":"Es una pequeña aplicacion para hacer una suerte de libreta en el escritorio de trabajo y mejorar la productividad",
-    "keywords":["productividad, libreta, apuntar"],
-    "homepage":"https://github.com/jorbelca/libreta",
-    "license":"MIT",
-    "author":"jorbelca (https://github.com/jorbelca)",
+  "version": "0.1.0",
+  "private": true,
+  "main": "public/electron.js",
+  "name": "electron-libreta",
+  "description": "Es una pequeña aplicacion para hacer una suerte de libreta en el escritorio de trabajo y mejorar la productividad",
+  "keywords": [
+    "productividad, libreta, apuntar"
+  ],
+  "license": "MIT",
+  "author": "jorbelca (https://github.com/jorbelca)",
   "build": {
-    
-    "appId": "0",
+    "appId": "com.electron.libreta",
     "mac": {
       "category": "productivity"
     }
   },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "^5.0.1"
+  },
   "scripts": {
-    "package": "electron-builder",
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "start": "electron ."
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.30",
-    "electron": "^19.0.6",
-    "electron-builder": "^23.1.0",
-    "svelte": "^3.44.0",
-    "vite": "^2.9.9"
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "^23.1.3"
   }
 }

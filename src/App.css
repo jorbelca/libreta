@@ -1,0 +1,36 @@
+:root {
+  background-color: rgb(1, 1, 82);
+  overflow: hidden !important;
+}
+.App {
+  text-align: center;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+}
+.input input {
+  width: 800px;
+  height: 70px;
+  outline: none !important;
+  border: none;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: lighter;
+  font-size: 25px;
+  color: whitesmoke;
+  padding: 0 13px 0 13px;
+  background-color: transparent;
+}
+.input input:focus {
+  outline: none !important;
+  border: none;
+}
+.input input::placeholder {
+  color: #d0d0cf7a;
+  text-align: right;
+}
