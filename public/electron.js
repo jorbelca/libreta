@@ -2,6 +2,11 @@ const { app, BrowserWindow, ipcMain, dialog } = require("electron")
 const fs = require("fs")
 const os = require("os")
 
+process.env.NODE_ENV = "develpment"
+
+const isDev = process.env.NODE_ENV !== "production"
+const isMac = process.platform === "darwin"
+
 app.on("ready", () => {
   const mainWindow = new BrowserWindow({
     frame: false,
@@ -10,12 +15,19 @@ app.on("ready", () => {
     trafficLightPosition: { x: 10, y: -10 },
     webPreferences: {
       webSecurity: true,
-      nodeIntegration: false,
+      nodeIntegration: true,
       contextIsolation: true,
       enableRemoteModule: false,
       preload: __dirname + "/preload.js",
     },
   })
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+    mainWindow.loadURL("http://localhost:3000")
+  }
+
+  mainWindow.loadFile(__dirname + "/index.html")
+
   mainWindow.setBounds({
     x: 440,
     y: 225,
@@ -23,12 +35,6 @@ app.on("ready", () => {
     height: 95,
     animate: true,
   })
-
-  mainWindow.loadURL(
-    process.env.NODE_ENV !== "production"
-      ? "http://localhost:3000"
-      : `file://${__dirname}/../index.html`
-  )
 
   ipcMain.on("savenewfile", (e, content) => {
     const dir = os.homedir() + "/Desktop"
